@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiCatalogoJogos.DTO.InputModel;
 using ApiCatalogoJogos.DTO.ViewModel;
+using ApiCatalogoJogos.Exceptions;
 using ApiCatalogoJogos.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,7 +55,7 @@ namespace ApiCatalogoJogos.Controllers.V1
                 var jogo = await _jogoService.Inserir(jogoInput);
                 return Ok(jogo);
             }
-            catch (Exception ex)
+            catch (JogoJaCadastradoException ex)
             {
                 return UnprocessableEntity("Já existe um jogo com este nome para esta produtora");
             }
@@ -69,7 +70,7 @@ namespace ApiCatalogoJogos.Controllers.V1
                 await _jogoService.Atualizar(idjogo, jogoInput);
                 return Ok();
             }
-            catch (Exception ex)
+            catch (JogoNaoCadastradoException ex)
             {
                 return NotFound("Não existe esse jogo");
             }
@@ -84,7 +85,7 @@ namespace ApiCatalogoJogos.Controllers.V1
                 await _jogoService.Atualizar(idjogo, preco);
                 return Ok();
             }
-            catch (Exception ex)
+            catch (JogoNaoCadastradoException ex)
             {
                 return NotFound("Não existe esse jogo");
             }
@@ -98,7 +99,7 @@ namespace ApiCatalogoJogos.Controllers.V1
                 await _jogoService.Remover(idjogo);
                 return Ok();
             }
-            catch (Exception ex)
+            catch (JogoNaoCadastradoException ex)
             {
                 return NotFound("Não existe esse jogo");
             }
