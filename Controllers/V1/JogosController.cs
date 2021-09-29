@@ -36,7 +36,7 @@ namespace ApiCatalogoJogos.Controllers.V1
             return Ok(jogos);
         }
         
-        [HttpGet("{idjogo: guid}")]
+        [HttpGet("{idjogo:guid}")]
         public async Task<ActionResult<JogoViewModel>> Obter([FromRoute] Guid idjogo) 
         {
             var jogo = await _jogoService.Obter(idjogo);
